@@ -1,19 +1,25 @@
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import SearchableFlatList from './src/screenStack.js';
+import RegionalStats from './src/Tabs';
+import Worldwide from './src/Worldwide';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export default function App() {
+
+const Drawer = createDrawerNavigator();
+
+const App: () => React$Node = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="Home" component={SearchableFlatList} options={{ drawerLabel: 'Home' }}/>
+      <Drawer.Screen name="Worldwide"  component={Worldwide} options={{ drawerLabel: 'Worldwide',title: "Global Summary" }} />
+      <Drawer.Screen name="Stats" component={RegionalStats} options={{ drawerLabel: 'Stats' }}/>
+    </Drawer.Navigator>
+      
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
